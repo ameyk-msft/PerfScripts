@@ -16,12 +16,12 @@ echo "Database selected: ${DatabaseSize}"
 
 echo "Cloning the scripts repo ..."
 
-git clone <git repo for scripts>
-cd <the script repo>
+git clone https://github.com/ameyk-msft/PerfScripts
+cd PerfScripts
 
 echo "Copying the hive script over to the cluster..."
 
-sshpass -p ${ClusterPassword} scp -o "StrictHostKeyChecking no" ${ClusterUsername}@${ClusterSSH}:/home/${ClusterUsername}/
+sshpass -p ${ClusterPassword} scp -o "StrictHostKeyChecking no" hive_script.sh ${ClusterUsername}@${ClusterSSH}:/home/${ClusterUsername}/
 
 sshpass -p ${ClusterPassword} ssh -o "StrictHostKeyChecking no" ${ClusterUsername}@${ClusterSSH} chmod a+x /home/${ClusterUsername}/hive_script.sh
 
@@ -35,3 +35,4 @@ fi
 echo "The hive_script completed!! Collecting the results..."
 sshpass -p ${ClusterPassword} scp -o "StrictHostKeyChecking no" ${ClusterUsername}@${ClusterSSH}:/home/${ClusterUsername}/hive-testbench/logs/query_times.csv .
 cat query_times.csv
+cd ../
