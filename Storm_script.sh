@@ -12,6 +12,12 @@ SpoutPending=$6
 
 # Clone the Storm sample
 echo "Cloning the storm sample "
+git --version 
+if [ $? -ne 0]; then
+	echo "Currenlty assuming its Ubuntu and installing git..."
+	sudo apt-get install git
+fi
+
 git clone https://github.com/ameyk-msft/Storm_Sample Storm_Sample
 
 if [ $? -ne 0 ]; then
