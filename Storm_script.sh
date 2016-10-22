@@ -4,7 +4,7 @@ echo "Running the storm script ..."
 
 # Params from base_script.sh
 SpoutParallelism=$1
-BoltParallelism=$2
+BoltParallelism=(($2 * 2))
 RecordSize=$3
 SpoutWrites=$4
 MaxFileSize=$5
