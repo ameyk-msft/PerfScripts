@@ -37,4 +37,5 @@ sshpass -p ${ClusterPassword} scp -o "StrictHostKeyChecking no" ${ClusterUsernam
 cat query_times.csv |  cut -f1,2 -d',' > result.csv
 
 echo "Converting the result to html format ..."
+chmod a+x convertToHtml.sh
 ./convertToHtml.sh
