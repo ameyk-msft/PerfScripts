@@ -12,7 +12,12 @@ SpoutPending=$6
 
 # Clone the Storm sample
 echo "Cloning the storm sample "
-git clone https://github.com/ameyk-msft/Storm_Sample.git
+git clone https://github.com/ameyk-msft/Storm_Sample Storm_Sample
+
+if [ $? -ne 0 ]; then
+	echo "git cloning failed."
+	exit 1
+fi
 
 cd Storm_Sample/src/microsoft.storm.writebuffertest
 
