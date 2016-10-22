@@ -34,5 +34,7 @@ fi
 
 echo "The hive_script completed!! Collecting the results..."
 sshpass -p ${ClusterPassword} scp -o "StrictHostKeyChecking no" ${ClusterUsername}@${ClusterSSH}:/home/${ClusterUsername}/hive-testbench/logs/query_times.csv .
-cat query_times.csv
-cd ../
+cat query_times.csv |  cut -f1,2 -d',' > result.csv
+
+echo "Converting the result to html format ..."
+./convertToHtml.sh

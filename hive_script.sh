@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Setting some params
+# Setting some params from base_script.sh
 ClusterUsername=$1
 DatabaseSize=$2
 
