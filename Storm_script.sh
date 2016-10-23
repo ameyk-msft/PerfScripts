@@ -18,6 +18,14 @@ if [ $? -ne 0 ]; then
 	sudo apt-get -y install git
 fi
 
+Storm_Example_Dir="/home/hdiuser/Storm_Sample"
+# Checking the storm example dir
+if [ -d "$Storm_Example_Dir" ]; then
+	echo "storm example dir exists. removing the dir"
+	rm -rf $Storm_Example_Dir
+
+fi
+
 git clone https://github.com/ameyk-msft/Storm_Sample Storm_Sample
 
 if [ $? -ne 0 ]; then
