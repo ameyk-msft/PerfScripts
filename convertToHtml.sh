@@ -5,8 +5,8 @@ ClusterUsername=$1
 
 echo "<html>" > res.html
 echo "<head>" >> res.html
-echo "<style> table, tr, td { border: 1px solid black} </style>"
-echo "</head>"
+echo "<style> table, tr, td { border: 1px solid black} </style>" >> res.html
+echo "</head>" >> res.html
 echo "<body>" >> res.html
 echo "<table>" >> res.html
 while read INPUT
