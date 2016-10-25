@@ -3,12 +3,13 @@
 echo "Running the storm script ..."
 
 # Params from base_script.sh
-SpoutParallelism=$1
-BoltParallelism=$(($2 * 8))
-RecordSize=$3
-SpoutWrites=$4
-MaxFileSize=$5
-SpoutPending=$6
+Workers=$1
+SpoutParallelism=$(($2 * $1))
+BoltParallelism=$(($3 * $1))
+RecordSize=$4
+SpoutWrites=$5
+MaxFileSize=$6
+SpoutPending=$7
 
 # Clone the Storm sample
 echo "Cloning the storm sample "
@@ -59,10 +60,16 @@ if [ $? -ne 0 ]; then
         export PATH=$PATH:$MAVEN_HOME/bin
 fi
 
+#check if inotifywait is present. If not then install it.
+which inotifywait > /dev/null 2>&1
+if [ $? -ne 0 ]; then 
+	sudo apt-get -y install inotify-tools
+fi
+
 #build the storm example 
 mvn clean package
 
 # Run the Storm example
-storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteBufferTopology -workers 8 -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt 512 -fileRotationSize 100 -fileBufferSize 4000000 -numRecords 10000000 -maxSpoutPending $SpoutPending -topologyName "ADLS_PERF_TOPOLOGY" -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath "/amkama_1021/" -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
+storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteBufferTopology -workers $Workers -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt 512 -fileRotationSize 100 -fileBufferSize 4000000 -numRecords 10000000 -maxSpoutPending $SpoutPending -topologyName "ADLS_PERF_TOPOLOGY" -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath "/amkama_1021/" -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
 
 
