@@ -7,10 +7,24 @@ DatabaseSize=$3
 SingleQueryRun=$4
 QueryNumber=$5
 
-echo "Cloning the hive-testbench"
-# git clone https://github.com/hdinsight/HivePerformanceAutomation /home/${ClusterUsername}/hive-testbench
+# Checking if git is installed
+git --version
+if [ $? -ne 0 ]; then
+	echo "Installing git..."
+	sudo apt-get -y install git
+fi
 
+# Check if hive-testbench is already present
 testbench=/home/${ClusterUsername}/hive-testbench
+echo "Checking if the hive-testbench is present .."
+if [ -d "$testbench" ]; then
+	echo "hive-testbench exists. Removing the testbench."
+	rm -rf ${testbench}
+fi
+
+echo "Cloning the hive-testbench"
+git clone https://github.com/hdinsight/HivePerformanceAutomation ${testbench}
+
 
 chmod -R 777 $testbench
 chmod -R a+x $testbench/*.sh
