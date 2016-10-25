@@ -19,9 +19,9 @@ chmod -R a+x $testbench/*.sh
 cd $testbench/tpch-scripts
 if [ "$SingleQueryRun" = true ]; then
 	echo "Running the single query: $QueryNumber "
-	# ./TpchSingleQueryExecute.sh ${DatabaseSize} ${SingleQueryRun}
+	./TpchSingleQueryExecute.sh ${DatabaseSize} ${SingleQueryRun}
 else
-	echo "Running the whole suite of 22 queries."
+	echo "Running the entire suite of 22 queries."
 	# ./RunQueriesAndCollectPATData.sh ${DatabaseSize} ${ClusterPassword}
 fi
 
