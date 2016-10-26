@@ -25,7 +25,7 @@ with open('output.html', 'w') as html: #enter the output filename
         else:
             html.write('\t\t<tr>\r')
             for col in row:
-                html.write('\t\t\t<td>' + col + '</td>\r')
+                html.write('\t\t\t<td align="center">' + col + '</td>\r')
             html.write('\t\t</tr>\r')
 
         r += 1
