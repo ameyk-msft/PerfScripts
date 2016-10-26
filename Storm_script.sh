@@ -27,7 +27,7 @@ if [ -d "$Storm_Example_Dir" ]; then
 
 fi
 
-git clone https://github.com/ameyk-msft/Storm_Sample Storm_Sample
+git clone https://github.com/hdinsight/storm-performance-automation Storm_Sample
 
 if [ $? -ne 0 ]; then
 	echo "git cloning failed."
