@@ -10,6 +10,7 @@ RecordSize=$4
 SpoutWrites=$5
 MaxFileSize=$6
 SpoutPending=$7
+TopologyName=$8
 
 # Clone the Storm sample
 echo "Cloning the storm sample "
@@ -70,6 +71,6 @@ fi
 mvn clean package
 
 # Run the Storm example
-storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteBufferTopology -workers $Workers -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt 512 -fileRotationSize 100 -fileBufferSize 4000000 -numRecords 10000000 -maxSpoutPending $SpoutPending -topologyName "ADLS_PERF_TOPOLOGY" -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath "/amkama_1021/" -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
+storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteBufferTopology -workers $Workers -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt 512 -fileRotationSize 100 -fileBufferSize 4000000 -numRecords 10000000 -maxSpoutPending $SpoutPending -topologyName $TopologyName -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath "/amkama_1021/" -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
 
 
