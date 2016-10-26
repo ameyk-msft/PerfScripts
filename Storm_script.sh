@@ -70,7 +70,10 @@ fi
 #build the storm example 
 mvn clean package
 
+# get the storagepath
+AdlsPath=$TopologyName$(date +'%m%d%I%M%S')
+
 # Run the Storm example
-storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteTopology -workers $Workers -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt $(($BoltParallelism * 2)) -fileRotationSize $MaxFileSize -fileBufferSize 4000000 -numRecords $SpoutWrites -maxSpoutPending $SpoutPending -topologyName $TopologyName -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath "/amkama_1021/" -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
+storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteTopology -workers $Workers -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt $(($BoltParallelism * 2)) -fileRotationSize $MaxFileSize -fileBufferSize 4000000 -numRecords $SpoutWrites -maxSpoutPending $SpoutPending -topologyName $TopologyName -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath $AdlsPath -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
 
 
