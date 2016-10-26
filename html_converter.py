@@ -13,7 +13,7 @@ with open('output.html', 'w') as html: #enter the output filename
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 ''')
-    html.write('<table data-toggle = "table" data-pagination = "true">\r')
+    html.write('<table border="0" cellpadding="2" cellspacing="0" width="80%" style="border: #dcdcdc 1px solid;font-weight: bold;">\r')
     r = 0
     for row in csvData:
         if r == 0:
