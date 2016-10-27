@@ -76,4 +76,39 @@ AdlsPath=$TopologyName$(date +'%m%d%I%M%S')
 # Run the Storm example
 storm jar target/org.apache.storm.hdfs.writebuffertest-0.1.jar org.apache.storm.hdfs.WriteTopology -workers $Workers -recordSize $RecordSize -spoutParallelism $SpoutParallelism -numTasksSpout $SpoutParallelism -boltParallelism $BoltParallelism -numTasksBolt $(($BoltParallelism * 2)) -fileRotationSize $MaxFileSize -fileBufferSize 4000000 -numRecords $SpoutWrites -maxSpoutPending $SpoutPending -topologyName $TopologyName -storageUrl "adl://adlsperf12dm7.azuredatalakestore.net" -storageFileDirPath $AdlsPath -numAckers $SpoutParallelism -sizeSyncPolicyEnabled
 
+echo "Pausing the script for the Storm topology to come up ..."
+sleep 1m
+
+ISALIVE=$(storm list | tail -1)
+
+while [ $ISALIVE != "No topologies running." ]
+do
+	echo "Pausing for 1 minute"
+	sleep 1m
+	ISALIVE=$(storm list | tail -1)
+done
+
+echo "Storm topology finished: $ISALIVE"
+
+# aggregating the result files from all nodes
+mkdir ~/result
+
+for hn in `cat ~/hostlist.txt`
+do
+        if [ -f ~/$topologyName.txt ]; then
+			rm ~/$topologyName.txt
+		fi
+		sshpass -p "H@doop1234" scp -o "StrictHostKeyChecking no" hdiuser@$hn:/tmp/$topologyName.txt .
+		cat ~/$topologyName.txt >> ~/result/finalResult.txt
+done
+
+echo "Final result is aggregated"
+# sort the final result and get the time.
+
+
+
+
+
+
+
 
