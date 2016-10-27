@@ -94,7 +94,8 @@ echo "Storm topology finished: $ISALIVE"
 
 # aggregating the result files from all nodes
 if [ -d "~/result" ]; then
-	rm -rf ~/result
+	echo "Removing the existing result dir."
+	sudo rm -rf ~/result
 fi
 mkdir ~/result
 cd ~/
@@ -110,8 +111,15 @@ done
 
 echo "Final result is aggregated"
 # sort the final result and get the time.
+cd ~/result/
 
+cat finalResult.txt | cut -f3 -d',' > pruned.txt
 
+sort -g -r --output=sorted.txt pruned.txt
+
+TOPOLOGY_TIME=$(head -1 sorted.txt)
+
+echo "Time for topology to complete: $TOPOLOGY_TIME"
 
 
 
