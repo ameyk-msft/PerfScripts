@@ -80,26 +80,32 @@ echo "Pausing the script for the Storm topology to come up ..."
 sleep 1m
 
 ISALIVE=$(storm list | tail -1)
+echo $ISALIVE
 
-while [ $ISALIVE != "No topologies running." ]
+while [ "$ISALIVE" != "No topologies running." ]
 do
-	echo "Pausing for 1 minute"
+	echo "----- Pausing for 1 minute -----"
 	sleep 1m
 	ISALIVE=$(storm list | tail -1)
+	echo $ISALIVE
 done
 
 echo "Storm topology finished: $ISALIVE"
 
 # aggregating the result files from all nodes
+if [ -d "~/result" ]; then
+	rm -rf ~/result
+fi
 mkdir ~/result
+cd ~/
 
 for hn in `cat ~/hostlist.txt`
 do
-        if [ -f ~/$topologyName.txt ]; then
-			rm ~/$topologyName.txt
+        if [ -f ~/$TopologyName.txt ]; then
+			rm ~/$TopologyName.txt
 		fi
-		sshpass -p "H@doop1234" scp -o "StrictHostKeyChecking no" hdiuser@$hn:/tmp/$topologyName.txt .
-		cat ~/$topologyName.txt >> ~/result/finalResult.txt
+		sshpass -p "H@doop1234" scp -o "StrictHostKeyChecking no" hdiuser@$hn:/tmp/$TopologyName.txt .
+		cat ~/$TopologyName.txt >> ~/result/finalResult.txt
 done
 
 echo "Final result is aggregated"
