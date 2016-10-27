@@ -11,6 +11,7 @@ SpoutWrites=$5
 MaxFileSize=$6
 SpoutPending=$7
 TopologyName=$8
+ClusterUsername=$9
 
 # Clone the Storm sample
 echo "Cloning the storm sample "
@@ -20,7 +21,7 @@ if [ $? -ne 0 ]; then
 	sudo apt-get -y install git
 fi
 
-Storm_Example_Dir="/home/hdiuser/Storm_Sample"
+Storm_Example_Dir="/home/${ClusterUsername}/Storm_Sample"
 # Checking the storm example dir
 if [ -d "$Storm_Example_Dir" ]; then
 	echo "storm example dir exists. removing the dir"
@@ -93,11 +94,12 @@ done
 echo "Storm topology finished: $ISALIVE"
 
 # aggregating the result files from all nodes
-if [ -d "~/result" ]; then
+RESULT_PATH=/home/${ClusterUsername}/result
+if [ -d "${RESULT_PATH}" ]; then
 	echo "Removing the existing result dir."
-	sudo rm -rf ~/result
+	sudo rm -rf ${RESULT_PATH}
 fi
-mkdir ~/result
+mkdir ${RESULT_PATH}
 cd ~/
 
 for hn in `cat ~/hostlist.txt`
@@ -105,13 +107,13 @@ do
         if [ -f ~/$TopologyName.txt ]; then
 			rm ~/$TopologyName.txt
 		fi
-		sshpass -p "H@doop1234" scp -o "StrictHostKeyChecking no" hdiuser@$hn:/tmp/$TopologyName.txt .
-		cat ~/$TopologyName.txt >> ~/result/finalResult.txt
+		sshpass -p "H@doop1234" scp -o "StrictHostKeyChecking no" ${ClusterUsername}@$hn:/tmp/$TopologyName.txt .
+		cat ~/$TopologyName.txt >> ${RESULT_PATH}/finalResult.txt
 done
 
 echo "Final result is aggregated"
 # sort the final result and get the time.
-cd ~/result/
+cd ${RESULT_PATH}/
 
 cat finalResult.txt | cut -f3 -d',' > pruned.txt
 
