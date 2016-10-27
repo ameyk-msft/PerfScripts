@@ -12,6 +12,7 @@ MaxFileSize=$6
 SpoutPending=$7
 TopologyName=$8
 ClusterUsername=$9
+ClusterPassword=$10
 
 # Clone the Storm sample
 echo "Cloning the storm sample "
@@ -107,7 +108,7 @@ do
         if [ -f ~/$TopologyName.txt ]; then
 			rm ~/$TopologyName.txt
 		fi
-		sshpass -p "H@doop1234" scp -o "StrictHostKeyChecking no" ${ClusterUsername}@$hn:/tmp/$TopologyName.txt .
+		sshpass -p "${ClusterPassword}" scp -o "StrictHostKeyChecking no" ${ClusterUsername}@$hn:/tmp/$TopologyName.txt .
 		cat ~/$TopologyName.txt >> ${RESULT_PATH}/finalResult.txt
 done
 
@@ -119,9 +120,9 @@ cat finalResult.txt | cut -f3 -d',' > pruned.txt
 
 sort -g -r --output=sorted.txt pruned.txt
 
-TOPOLOGY_TIME=$(head -1 sorted.txt)
+# TOPOLOGY_TIME=$(head -1 sorted.txt)
 
-echo "Time for topology to complete: $TOPOLOGY_TIME"
+# echo "Time for topology to complete: $TOPOLOGY_TIME"
 
 
 
