@@ -36,7 +36,7 @@ if [ "$SingleQueryRun" = true ]; then
 	./TpchSingleQueryExecute.sh ${DatabaseSize} ${QueryNumber}
 else
 	echo "Running the entire suite of 22 queries."
-	# ./RunQueriesAndCollectPATData.sh ${DatabaseSize} ${ClusterPassword}
+	./RunQueriesAndCollectPATData.sh ${DatabaseSize} ${ClusterPassword}
 fi
 
 
