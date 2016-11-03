@@ -41,5 +41,10 @@ fi
 
 cd ..
 mkdir final_result
-cp run_*/logs/query_times.csv final_result/
-echo "The result is copied in the final_result"
+cp $testbench/run_*/logs/query_times.csv $testbench/final_result/
+
+if [ $? -ne 0 ]; then
+	echo "The result copying failed. Aborting."
+else
+	echo "The result is copied in the final_result"
+fi
