@@ -39,7 +39,7 @@ else
 	./RunQueriesAndCollectPATData.sh ${DatabaseSize} ${ClusterPassword}
 fi
 
-
-
-
-
+cd ..
+mkdir final_result
+cp run_*/logs/query_times.csv final_result/
+echo "The result is copied in the final_result"
