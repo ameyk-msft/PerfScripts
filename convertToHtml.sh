@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Setting some params from base_script.sh
-ClusterUsername=$1
+ResultFile=$1
+ClusterUsername=$2
+
 
 echo "<html>" > res.html
 echo "<head>" >> res.html
@@ -12,7 +14,7 @@ echo "<table>" >> res.html
 while read INPUT
 do
         echo "<tr><td>${INPUT//,/</td><td>}</td></tr>"  >> res.html
-done < /tmp/result.csv
+done < $ResultFile
 echo "</table>" >> res.html
 echo "</body>" >> res.html
 echo "</html>" >> res.html
