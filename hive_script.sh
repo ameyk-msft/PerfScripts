@@ -30,9 +30,9 @@ chmod -R 777 $testbench
 chmod -R a+x $testbench/*.sh
 
 # temporary workaround for query16.
-cd $testbench/sample-queries-tpch
-sed -i '1i\'"set hive.auto.convert.join=false;" tpch_query16.sql
-echo "Adding the temporary workaround for Query 16"
+# cd $testbench/sample-queries-tpch
+# sed -i '1i\'"set hive.auto.convert.join=false;" tpch_query16.sql
+# echo "Adding the temporary workaround for Query 16"
 
 # go to tpch-scripts to run the script
 cd $testbench/tpch-scripts
