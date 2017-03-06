@@ -48,7 +48,7 @@ fi
 
 cd ..
 mkdir final_result
-cp $testbench/run_*/logs/query_times.csv $testbench/final_result/
+cp $testbench/output/tpch/run_*/querytimes/query_times_*.csv $testbench/final_result/
 
 if [ $? -ne 0 ]; then
 	echo "The result copying failed. Aborting."
