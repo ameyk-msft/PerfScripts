@@ -23,7 +23,7 @@ if [ -d "$testbench" ]; then
 fi
 
 echo "Cloning the hive-testbench"
-git clone https://github.com/hdinsight/HivePerformanceAutomation ${testbench}
+# git clone https://github.com/hdinsight/HivePerformanceAutomation ${testbench}
 
 
 chmod -R 777 $testbench
@@ -38,11 +38,9 @@ chmod -R a+x $testbench/*.sh
 cd $testbench/bin
 if [ "$SingleQueryRun" = true ]; then
 	echo "Running the single query: $QueryNumber "
-	# ./TpchQueryExecute.sh ${DatabaseSize} ${QueryNumber}
 	./runSingleQueryLoop.sh tpch tpch_query${QueryNumber}.sql
 else
 	echo "Running the entire suite of 22 queries."
-	# ./RunQueriesAndCollectPATData.sh ${DatabaseSize} ${ClusterPassword}
 	./runQueries.sh tpch
 fi
 
