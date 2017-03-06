@@ -19,11 +19,11 @@ testbench=/home/${ClusterUsername}/hive-testbench
 echo "Checking if the hive-testbench is present .."
 if [ -d "$testbench" ]; then
 	echo "hive-testbench exists. Removing the testbench."
-	# rm -rf ${testbench}
+	rm -rf ${testbench}
 fi
 
 echo "Cloning the hive-testbench"
-# git clone https://github.com/hdinsight/HivePerformanceAutomation ${testbench}
+git clone https://github.com/hdinsight/HivePerformanceAutomation ${testbench}
 
 
 chmod -R 777 $testbench
