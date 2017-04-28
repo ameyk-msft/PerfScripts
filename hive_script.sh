@@ -23,7 +23,8 @@ if [ -d "$testbench" ]; then
 fi
 
 echo "Cloning the hive-testbench"
-git clone https://github.com/hdinsight/HivePerformanceAutomation ${testbench}
+git clone https://github.com/ameyk-msft/HivePerformanceAutomation ${testbench}
+git checkout adlshiveperf
 
 
 chmod -R 777 $testbench
