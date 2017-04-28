@@ -24,8 +24,8 @@ fi
 
 echo "Cloning the hive-testbench"
 git clone https://github.com/ameyk-msft/HivePerformanceAutomation ${testbench}
+cd ${testbench}
 git checkout adlshiveperf
-
 
 chmod -R 777 $testbench
 chmod -R a+x $testbench/*.sh
