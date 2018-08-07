@@ -19,7 +19,11 @@ testbench=/home/${ClusterUsername}/hive-testbench
 echo "Checking if the hive-testbench is present .."
 if [ -d "$testbench" ]; then
 	echo "hive-testbench exists. Removing the testbench."
-	rm -rf ${testbench}
+	sudo rm -rf ${testbench}
+	if [ $? -ne 0 ]; then
+		echo "hive-testbench couldn't be deleted. Exiting the script."
+		exit 1
+	fi
 fi
 
 echo "Cloning the hive-testbench"
@@ -27,8 +31,8 @@ git clone https://github.com/ameyk-msft/HivePerformanceAutomation ${testbench}
 cd ${testbench}
 git checkout adlshiveperf
 
-chmod -R 777 $testbench
-chmod -R a+x $testbench/*.sh
+sudo chmod -R 777 $testbench
+sudo chmod -R a+x $testbench/*.sh
 
 # temporary workaround for query16 for HDI3.4 and below.
 # cd $testbench/sample-queries-tpch
@@ -39,10 +43,10 @@ chmod -R a+x $testbench/*.sh
 cd $testbench/bin
 if [ "$SingleQueryRun" = true ]; then
 	echo "Running the single query: $QueryNumber "
-	./runSingleQueryLoop.sh tpch tpch_query${QueryNumber}.sql
+	sudo ./runSingleQueryLoop.sh tpch tpch_query${QueryNumber}.sql
 else
 	echo "Running the entire suite of 22 queries."
-	./runQueries.sh tpch
+	sudo ./runQueries.sh tpch
 fi
 
 cd ..
